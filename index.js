@@ -20,19 +20,27 @@ const dbClient = new Client({
   database: "farmyng-backend-local",
 });
 
-await dbClient.connect();
-const result = await dbClient.query(`SELECT * from "User";`);
-const users = result.rows.map((e) => {
-  return new UserRO(
-    e.id,
-    e.name,
-    e.phone,
-    e.language,
-    e.role,
-    e.zipCode,
-    e.points
-  );
-});
-await dbClient.end();
+// await dbClient.connect();
+// const result = await dbClient.query(`SELECT * from "User";`);
+// const users = result.rows.map((e) => {
+//   return new UserRO(
+//     e.id,
+//     e.name,
+//     e.phone,
+//     e.language,
+//     e.role,
+//     e.zipCode,
+//     e.points
+//   );
+// });
+// await dbClient.end();
 
-await index.saveObjects(users).wait();
+// await index.saveObjects(users).wait();
+
+index.search("").then((result) => {
+  console.log(result.nbHits);
+
+  for (const hit of result.hits) {
+    console.log(hit);
+  }
+});
